@@ -1,0 +1,82 @@
+[
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -D_USE_MATH_DEFINES -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk   -o CMakeFiles\\Reconstruction.dir\\AdvancingFrontSurfaceReconstruction.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\AdvancingFrontSurfaceReconstruction.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/AdvancingFrontSurfaceReconstruction.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -D_USE_MATH_DEFINES -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk   -o CMakeFiles\\Reconstruction.dir\\main.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\main.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/main.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\Delaunay3D.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\Delaunay3D.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/Delaunay3D.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\DelaunayRadius.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\DelaunayRadius.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/DelaunayRadius.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\DihedraAngle.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\DihedraAngle.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/DihedraAngle.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\FaceToOrientedFace.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\FaceToOrientedFace.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/FaceToOrientedFace.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\ReadObj.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\ReadObj.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/ReadObj.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\SortMatrix.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\SortMatrix.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/SortMatrix.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\TetrahedronCenter.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\TetrahedronCenter.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/TetrahedronCenter.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\TriangleCircleRadius.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\TriangleCircleRadius.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/TriangleCircleRadius.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -DTETLIBRARY -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/eigen3 -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen   -o CMakeFiles\\Utils.dir\\WriteObj.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\WriteObj.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/WriteObj.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils/tetgen",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe  -DTETLIBRARY    -o CMakeFiles\\tet.dir\\tetgen.cxx.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\tetgen\\tetgen.cxx",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen/tetgen.cxx"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/utils/tetgen",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe  -DTETLIBRARY    -o CMakeFiles\\tet.dir\\predicates.cxx.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\utils\\tetgen\\predicates.cxx",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/utils/tetgen/predicates.cxx"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/glpk",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -ID:/ProgramFiles/glpk-4.65/src -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk   -o CMakeFiles\\GlpkSolver.dir\\GLPKSolver.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\glpk\\GLPKSolver.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk/GLPKSolver.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/glpk",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -ID:/ProgramFiles/glpk-4.65/src -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk   -o CMakeFiles\\GlpkSolver.dir\\LinearConstraint.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\glpk\\LinearConstraint.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk/LinearConstraint.cpp"
+    },
+    {
+        "directory": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/mingw_build/glpk",
+        "command": "D:\\ProgramFiles\\mingw64\\bin\\g++.exe -ID:/ProgramFiles/glpk-4.65/src -IC:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk   -o CMakeFiles\\GlpkSolver.dir\\LinearVariable.cpp.obj -c C:\\Users\\20191024\\Desktop\\codes\\c++\\AFSR(1)\\glpk\\LinearVariable.cpp ",
+        "file": "C:/Users/20191024/Desktop/codes/c++/AFSR(1)/glpk/LinearVariable.cpp"
+    }
+]
