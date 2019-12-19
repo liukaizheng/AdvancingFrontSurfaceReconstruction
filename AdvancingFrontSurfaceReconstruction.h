@@ -14,10 +14,6 @@ struct Plausibility;*/
 class AdvancingFrontSurfaceReconstruction
 {
 public:
-    enum Mode {
-        DEFAULT,
-        PAGE_RANK
-    };
     enum Type {
         EXTENSION,
         EARING_FILLING_1,
@@ -26,7 +22,7 @@ public:
         GLUING,
         NOT_VALID
     };
-    AdvancingFrontSurfaceReconstruction(const std::vector<double>& V, Mode mode = DEFAULT, const double K = 5.0, const double cosA = std::cos(M_PI / 6.0 * 5.0), const double cosB = std::cos(M_PI / 6.0));
+    AdvancingFrontSurfaceReconstruction(const std::vector<double>& V, const double K = 5.0, const double cosA = std::cos(M_PI / 6.0 * 5.0), const double cosB = std::cos(M_PI / 6.0));
     virtual ~AdvancingFrontSurfaceReconstruction();
 
     void run();
@@ -40,15 +36,12 @@ public:
 #endif
 protected:
     void init();
-    void InitialMatrix();
     bool DihedralAngle(const int& f1, const int& f2, double& value);
-    void CandidateTriangle(const int& f, const int& ei, int& cf, int& cei, double& value);
+    void CandidateTriangle(const int& f, const int& ei, int& cf, int& cei, double& value, bool consideringRadius = true);
     Type Validate(const int& f, const int& ei);
     int StitchTriangle(const int& f, const int& ei, const double& p);
 
     const std::vector<double>& mV;          //vertices
-    Mode mMode;
-    std::vector<double> mPRVec;             //page rank vector
     double mK;
     double mCosA;
     double mCosB;
@@ -64,6 +57,7 @@ protected:
     std::vector<int> mE2uE;                                 //every oriented edge mpas to its unique edge
     std::vector<std::vector<int>> mUE2E;                    //neighbors of every edge
     std::vector<double> mR;                                 //delaunay radius
+    double mAR;                                             //average radius
 
     Plausibility<double, int>* mPP;                         //Plausibility pool
     std::unordered_map<int, bool> mS;                       //surface

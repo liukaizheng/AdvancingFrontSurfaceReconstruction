@@ -22,8 +22,8 @@ typedef Eigen::SparseMatrix<double> SpMat;
 #define PrintMSG(msg) \
     std::cout << #msg << ": " << msg << "\n";
 
-AdvancingFrontSurfaceReconstruction::AdvancingFrontSurfaceReconstruction(const std::vector<double>& V, AdvancingFrontSurfaceReconstruction::Mode mode, const double K, const double cosA, const double cosB)
-    :mV(V), mMode(mode), mK(K), mCosA(cosA), mCosB(cosB), STANDBY_CANDIDATE(2), NEVER_VALID_CANDIDATE(3)
+AdvancingFrontSurfaceReconstruction::AdvancingFrontSurfaceReconstruction(const std::vector<double>& V, const double K, const double cosA, const double cosB)
+    :mV(V), mK(K), mCosA(cosA), mCosB(cosB), STANDBY_CANDIDATE(2), NEVER_VALID_CANDIDATE(3)
 {
     RowMatrixXd _V;
     RowMatrixXi T;
@@ -88,7 +88,7 @@ AdvancingFrontSurfaceReconstruction::AdvancingFrontSurfaceReconstruction(const s
 
         mVE2E.resize(mV.size() / 3);
 
-        for(int i = 0; i < mF.size() / 3; i++)
+        for(int i = 0; i < static_cast<int>(mF.size() / 3); i++)
         {
             int* fv = &mF[i*3];
             for(int j = 0; j < 3; j++)
@@ -111,8 +111,9 @@ AdvancingFrontSurfaceReconstruction::AdvancingFrontSurfaceReconstruction(const s
 	TetrahedronCenter(_V, T, C, computable);
     Eigen::VectorXd TR, R;
     SquaredTriangleCircleRadius(_V, urF, TR);
-    DelaunayRadius(_V, T, C, TR, mUF2F, computable, R);
-    mR.resize(R.size());
+    /*DelaunayRadius(_V, T, C, TR, mUF2F, computable, R);*/
+    TR = TR.cwiseSqrt().eval();
+    mR.resize(TR.size());
     //std::copy(R.data(), R.data() + mR.size(), mR.begin());
 	std::copy(TR.data(), TR.data() + mR.size(), mR.begin());
 
@@ -320,9 +321,6 @@ void AdvancingFrontSurfaceReconstruction::GetBoundaryEdge(std::vector<std::vecto
 
 void AdvancingFrontSurfaceReconstruction::init()
 {
-    if(mMode == PAGE_RANK)
-        InitialMatrix();
-
     unsigned minFace = mNumFaces;
     double minRadius = std::numeric_limits<double>::infinity();
 
@@ -352,7 +350,7 @@ void AdvancingFrontSurfaceReconstruction::init()
             {
                 int cf, cei;
                 double cp;
-                CandidateTriangle(f, i, cf, cei, cp);
+                CandidateTriangle(f, i, cf, cei, cp, false);
                 if(cp < -1.0)
                 {
                     auto pb = &mPP[mE2uE[minFace + i * mNumFaces]];
@@ -382,6 +380,7 @@ void AdvancingFrontSurfaceReconstruction::init()
 
     if(minFace != mNumFaces)
     {
+        mAR = mR[minFace];
         int fe[3] = {mE2uE[minFace], mE2uE[minFace + mNumFaces], mE2uE[minFace + 2 * mNumFaces]};
         int* fv = &mF[minFace * 3];
         const int f = minFace + 1;
@@ -420,68 +419,23 @@ void AdvancingFrontSurfaceReconstruction::init()
 
 }
 
-void AdvancingFrontSurfaceReconstruction::InitialMatrix()
-{
-    SpMat prMat(mNumFaces, mNumFaces);
-    std::vector<Eigen::Triplet<double>> triplets;
-    for(int i = 0; i < mNumFaces; i++)
-    {
-
-        std::set<int> nfs;
-        for(int j = 0; j < 3; j++)
-        {
-            const auto ue = mE2uE[i + j * mNumFaces];
-            const auto& nes = mUE2E[ue];
-            if(nes.size() > 0)
-            {
-                for(int k = 0; k < nes.size(); k++) 
-                {
-                    const auto nf = nes[k] % mNumFaces;
-                    if(nf != i)
-                    {
-                        nfs.emplace(nf);
-                    }
-                }
-            }
-        }
-
-        for(auto it = nfs.begin();it != nfs.end(); it++)
-        {
-            triplets.emplace_back(Eigen::Triplet<double>(*it, i, 1.0 / nfs.size()));
-        }
-    }
-    prMat.setFromTriplets(triplets.begin(), triplets.end());
-
-    double diff = std::numeric_limits<double>::infinity();
-    auto v = Eigen::VectorXd::Constant(mNumFaces, 1, 1.0 / mNumFaces).eval();
-    while(diff > 0.0001)
-    {
-        auto v1 = prMat * v;
-        diff = (v1 - v).cwiseAbs().sum();
-        v = v1;
-    }
-    mPRVec.resize(mNumFaces);
-    std::copy(v.data(), v.data() + mNumFaces, mPRVec.begin());
-}
 
 inline bool AdvancingFrontSurfaceReconstruction::DihedralAngle(const int& f1, const int& f2, double& value)
 {
     const int uf1 = std::abs(f1) - 1;
     const int uf2 = std::abs(f2) - 1;
+    const int* fv1 = &mF[3*uf1];
+    const int* fv2 = &mF[3*uf2];
+
     const int& f10 = mF[3*uf1];
-    const int& f11 = mF[3*uf1 + 1];
-    const int& f12 = mF[3*uf1 + 2];
-    const int& f20 = mF[3*uf2];
-    const int& f21 = mF[3*uf2 + 1];
-    const int& f22 = mF[3*uf2 + 2];
-    Eigen::Vector3d v11(mV[3 * f11] - mV[3 * f10], mV[3 * f11 + 1] - mV[3*f10 + 1], mV[3*f11 + 2] - mV[3*f10 + 2]);
-    Eigen::Vector3d v12(mV[3 * f12] - mV[3 * f10], mV[3 * f12 + 1] - mV[3*f10 + 1], mV[3*f12 + 2] - mV[3*f10 + 2]);
+    Eigen::Vector3d v11(mV[3 * fv1[1]] - mV[3 * fv1[0]], mV[3 * fv1[1] + 1] - mV[3*fv1[0] + 1], mV[3*fv1[1] + 2] - mV[3*fv1[0] + 2]);
+    Eigen::Vector3d v12(mV[3 * fv1[2]] - mV[3 * fv1[0]], mV[3 * fv1[2] + 1] - mV[3*fv1[0] + 1], mV[3*fv1[2] + 2] - mV[3*fv1[0] + 2]);
     Eigen::Vector3d v1 = v11.cross(v12);
     if(v1.squaredNorm() < std::numeric_limits<double>::epsilon())
         return false;
 
-    Eigen::Vector3d v21(mV[3 * f21] - mV[3 * f20], mV[3 * f21 + 1] - mV[3*f20 + 1], mV[3*f21 + 2] - mV[3*f20 + 2]);
-    Eigen::Vector3d v22(mV[3 * f22] - mV[3 * f20], mV[3 * f22 + 1] - mV[3*f20 + 1], mV[3*f22 + 2] - mV[3*f20 + 2]);
+    Eigen::Vector3d v21(mV[3 * fv2[1]] - mV[3 * fv2[0]], mV[3 * fv2[1] + 1] - mV[3*fv2[0] + 1], mV[3*fv2[1] + 2] - mV[3*fv2[0] + 2]);
+    Eigen::Vector3d v22(mV[3 * fv2[2]] - mV[3 * fv2[0]], mV[3 * fv2[2] + 1] - mV[3*fv2[0] + 1], mV[3*fv2[2] + 2] - mV[3*fv2[0] + 2]);
     Eigen::Vector3d v2 = v21.cross(v22);
     if(v2.squaredNorm() < std::numeric_limits<double>::epsilon())
         return false;
@@ -494,7 +448,7 @@ inline bool AdvancingFrontSurfaceReconstruction::DihedralAngle(const int& f1, co
     return true;
 }
 
-inline void AdvancingFrontSurfaceReconstruction::CandidateTriangle(const int& f, const int& ei, int& cf, int& cei, double& value)
+inline void AdvancingFrontSurfaceReconstruction::CandidateTriangle(const int& f, const int& ei, int& cf, int& cei, double& value, bool consideringRadius)
 {
     const int uf = std::abs(f) - 1;
     cf = mNumFaces + 1;
@@ -537,29 +491,12 @@ inline void AdvancingFrontSurfaceReconstruction::CandidateTriangle(const int& f,
         {
             if(da > mCosA)
             {
-                if(mMode == DEFAULT)
+                if(mR[uaf] < cr)
                 {
-                    if(mR[uaf] < cr)
-                    {
-                        cf = af;
-                        cei = aei;
-                        cr = mR[uaf];
-                        ca = da;
-                    }
-                }
-                else if(mMode == PAGE_RANK)
-                {
-                    if(mR[uaf] > std::numeric_limits<double>::epsilon())
-                    {
-                        /*double val = -1.0 / (mPRVec[uaf] * mR[uaf]);*/
-                        double val = -1.0 /mR[uaf] * std::pow(1.0 / mPRVec[uaf], 2.0);
-                        if(val < cr)
-                        {
-                            cf = af;
-                            cei = aei;
-                            cr = val;
-                        }
-                    }
+                    cf = af;
+                    cei = aei;
+                    ca = da;
+                    cr = mR[uaf];
                 }
             }
         }
@@ -572,9 +509,10 @@ inline void AdvancingFrontSurfaceReconstruction::CandidateTriangle(const int& f,
         return;
     }
 
-    if(mMode == PAGE_RANK)
+    /*if( mR[ucf] < mK * mR[uf] || mR[uf] < std::numeric_limits<double>::epsilon())*/
+    if(consideringRadius && mR[ucf] > mK * mAR)
     {
-        value = cr;
+        value = NEVER_VALID_CANDIDATE;
         return;
     }
 
@@ -584,14 +522,7 @@ inline void AdvancingFrontSurfaceReconstruction::CandidateTriangle(const int& f,
     }
     else
     {
-        if( mR[ucf] < mK * mR[uf] || mR[uf] < std::numeric_limits<double>::epsilon())
-        {
-            value = -ca;
-        }
-        else
-        {
-            value = NEVER_VALID_CANDIDATE;      //reasonable??
-        }
+        value = -ca;
     }
 }
 
@@ -709,6 +640,13 @@ inline int AdvancingFrontSurfaceReconstruction::StitchTriangle(const int& f, con
 #endif
     Type type = Validate(f, ei);
     int eis[2] = {(ei + 1) % 3, (ei + 2) % 3};
+
+    if(type != NOT_VALID)
+    {
+        const auto n = mS.size();
+        mAR = mAR * (static_cast<double>(n) / (n + 1)) + mR[uf] * (1.0 / (n + 1));
+    }
+
     if(type == EXTENSION)
     {
         addFace();
